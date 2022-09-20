@@ -4,6 +4,7 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
+
 streamlit.title('My parents new healthy diner')
 
 streamlit.header('Breakfast Favorites')
@@ -91,14 +92,11 @@ if streamlit.button('Add a fruit to the list'):
   
   
   
-  import streamlit
-import snowflake.connector
-import pandas
+
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
-my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(),
-CURRENT_REGION()")
+my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(),CURRENT_REGION()")
 my_data_row = my_cur.fetchone()
 streamlit.text("Hello from Snowflake:")
 streamlit.text(my_data_row)
@@ -123,11 +121,7 @@ product_caption = 'Our warm, comfortable, ' + option + ' sweatsuit!'
 # use the option selected to go back and get all the info from the database
 my_cur.execute("select direct_url, price, size_list, upsell_product_desc from catalog_for_website where color_or_style = '" + option + "';")
 df2 = my_cur.fetchone()
-streamlit.image(
-df2[0],
-width=400,
-caption= product_caption
-)
+streamlit.image(df2[0],width=400,caption= product_caption)
 streamlit.write('Price: ', df2[1])
 streamlit.write('Sizes Available: ',df2[2])
 streamlit.write(df2[3])
